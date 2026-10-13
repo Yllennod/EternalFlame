@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import net.runelite.client.ui.ColorScheme;
@@ -45,7 +46,23 @@ public class EternalFlamePanel extends PluginPanel
 
         share.setToolTipText("Off: nothing is sent anywhere. On: your name, log counts and a random ID are sent to the plugin's server.");
         share.setAlignmentX(LEFT_ALIGNMENT);
-        share.addActionListener(e -> plugin.setSharing(share.isSelected()));
+        share.addActionListener(e ->
+        {
+            if (share.isSelected())
+            {
+                // Same warning as the config option, since this checkbox bypasses the config screen
+                int choice = JOptionPane.showConfirmDialog(this,
+                    "<html><body style='width: 220px'>" + EternalFlameConfig.SHARE_WARNING
+                        + ".<br><br>Turn on sharing?</body></html>",
+                    "Share to leaderboard", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (choice != JOptionPane.YES_OPTION)
+                {
+                    share.setSelected(false);
+                    return;
+                }
+            }
+            plugin.setSharing(share.isSelected());
+        });
         content.add(share);
         content.add(spacer(10));
 
