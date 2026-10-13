@@ -9,7 +9,11 @@ public interface EternalFlameConfig extends Config
 {
     String GROUP = "eternalflame";
 
+    String SHARE_WARNING = "This plugin submits your IP address, and may submit other game data, "
+        + "to a 3rd-party server not controlled or verified by RuneLite developers";
+
     @ConfigItem(keyName = "shareToLeaderboard", name = "Share to leaderboard", position = 1,
+        warning = SHARE_WARNING,
         description = "Off by default. When ON, your character name, log counts and a random anonymous ID are sent to the plugin's "
             + "server, and the shared total and leaderboard are fetched from it. When OFF, nothing is sent or requested and "
             + "the plugin only counts locally.")
